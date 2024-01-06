@@ -5,8 +5,10 @@ import lombok.Setter;
 
 @Getter @Setter
 public class CarResponse {
-    private int distance; //meter or kelometer
-    private int duration; //millisecond or minute
+    private int distance;
+    private int duration;
     private int tollFare;
     private int fuelPrice;
+    private int costOfDriving;
+    private int difference;
 }

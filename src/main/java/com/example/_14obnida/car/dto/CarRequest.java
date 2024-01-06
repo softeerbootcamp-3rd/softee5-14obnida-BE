@@ -9,4 +9,5 @@ public class CarRequest {
     private Double startLatitude;
     private Double goalLongitude;
     private Double goalLatitude;
+    private Integer publicTransportationFee;
 }

@@ -6,7 +6,8 @@ import com.example._14obnida.car.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 //@RestController
 @Controller
@@ -18,8 +19,9 @@ public class CarController {
         this.carService = carService;
     }
 
-    @GetMapping("/api/car")
-    public CarResponse getResponse(@ModelAttribute CarRequest carRequest) { //@RequestBody 차이??
+    @GetMapping("/app/car")
+    @ResponseBody
+    public CarResponse getResponse(@RequestBody CarRequest carRequest) {
         validateMapRequest(carRequest);
         return carService.getResponse(carRequest);
     }
@@ -32,6 +34,8 @@ public class CarController {
         if (carRequest.getGoalLongitude() == null)
             throw new RuntimeException();
         if (carRequest.getGoalLatitude() == null)
+            throw new RuntimeException();
+        if (carRequest.getPublicTransportationFee() == null)
             throw new RuntimeException();
     }
 }

@@ -74,17 +74,10 @@ public class CarService {
         carResponse.setTollFare(tollFare);
         carResponse.setFuelPrice(fuelPrice);
 
+        int costOfDriving = tollFare + fuelPrice;
 
-
-        /**
-         * 표준 출력으로 테스트
-         * 서버 띄워서 아래 URL로 접속
-         * http://127.0.0.1:8080/api/car?startLongitude=127.1058342&startLatitude=37.3597078&goalLongitude=129.0759853&goalLatitude=35.1794697
-         */
-        String test = "distance: " + distance + " duration: " + duration + " tollFare: " + tollFare + " fuelPrice: " + fuelPrice;
-        System.out.println(test);
-
-
+        carResponse.setCostOfDriving(costOfDriving);
+//        carResponse.setDifference(); //대중교통 이용 금액이 차량 이용금액보다 더 큰 경우가 있을까?
 
         return carResponse;
     }
