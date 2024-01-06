@@ -15,6 +15,9 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./
+      
     steps:
       - uses: actions/checkout@v2
       
@@ -30,9 +33,11 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
         shell: bash
+        working-directory: ${{ env.working-directory }}
 
       - name: Build and Test
         run: ./gradlew build test
+        working-directory: ${{ env.working-directory }}
 
       - name: Make Zip File
         run: zip -qq -r ./$GITHUB_SHA.zip .
