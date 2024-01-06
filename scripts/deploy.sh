@@ -3,7 +3,7 @@
 REPOSITORY=/home/ubuntu/14obnida
 cd $REPOSITORY
 
-APP_NAME=14obnida
+APP_NAME=_14obnida
 JAR_NAME=$(ls $REPOSITORY/build/libs/ | grep 'SNAPSHOT.jar' | tail -n 1)
 JAR_PATH=$REPOSITORY/build/libs/$JAR_NAME
 
