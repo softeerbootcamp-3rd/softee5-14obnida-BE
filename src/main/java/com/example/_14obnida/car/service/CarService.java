@@ -6,6 +6,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,13 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 public class CarService {
     private String requestUrl = "https://naveropenapi.apigw.ntruss.com";
-    private String clientId = "X-NCP-APIGW-API-KEY-ID";
-    private String clientSecret = "X-NCP-APIGW-API-KEY";
-    //response(reqiest.get)
+
+    @Value("${clientId}")
+    private String clientId;
+
+    @Value("${clientSecret}")
+    private String clientSecret;
+
     public CarResponse getResponse(CarRequest carRequest) {
         double startLongitude = carRequest.getStartLongitude();
         double startLatitude = carRequest.getStartLatitude();
@@ -26,8 +31,8 @@ public class CarService {
 
         WebClient client = WebClient.builder()
                 .baseUrl(requestUrl)
-                .defaultHeader(clientId, "u8p1b6yi2l")
-                .defaultHeader(clientSecret, "NVhSN3C90k0OKfcJXoVVqqbaOpdt1UDOSVGsJi9t")
+                .defaultHeader("X-NCP-APIGW-API-KEY-ID", clientId)
+                .defaultHeader("X-NCP-APIGW-API-KEY", clientSecret)
                 .build();
         ResponseEntity<String> result = client
                 .get()
