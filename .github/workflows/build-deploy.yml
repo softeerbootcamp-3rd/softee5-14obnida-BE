@@ -15,7 +15,8 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env: working-directory: ./
+    env :
+      working-directory: ./
     
     steps:
       - uses: actions/checkout@v2
