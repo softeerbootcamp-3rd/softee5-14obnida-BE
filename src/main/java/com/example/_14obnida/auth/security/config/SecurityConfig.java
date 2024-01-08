@@ -44,7 +44,7 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher(API_PREFIX + "/auth/login/**"),
                                 new AntPathRequestMatcher(API_PREFIX + "/signup/**")
                         ).permitAll()
-                        .anyRequest().authenticated());
+                        .anyRequest().permitAll());
 
         http.apply(filterConfig);
 

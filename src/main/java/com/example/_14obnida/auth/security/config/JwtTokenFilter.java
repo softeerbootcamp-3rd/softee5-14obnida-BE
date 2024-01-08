@@ -1,5 +1,6 @@
 package com.example._14obnida.auth.security.config;
 
+import com.example._14obnida.auth.security.AccessTokenInfo;
 import com.example._14obnida.auth.security.AuthDetails;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -57,10 +58,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     public Authentication getAuthentication(String token){
-        Long userId = jwtProvider.parseAccessToken(token);
+        AccessTokenInfo  accessTokenInfo= jwtProvider.parseAccessToken(token);
 
         UserDetails userDetails = new AuthDetails(
-                userId.toString()
+                accessTokenInfo.getUserId().toString(),
+                accessTokenInfo.getRole()
         );
 
         return new UsernamePasswordAuthenticationToken(

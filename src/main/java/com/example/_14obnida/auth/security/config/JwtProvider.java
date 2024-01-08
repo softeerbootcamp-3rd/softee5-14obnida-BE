@@ -1,5 +1,6 @@
 package com.example._14obnida.auth.security.config;
 
+import com.example._14obnida.auth.security.AccessTokenInfo;
 import com.example._14obnida.auth.security.JwtProperties;
 import com.example._14obnida.common.exception.DdubukException;
 import com.example._14obnida.common.exception.ErrorCode;
@@ -26,6 +27,8 @@ public class JwtProvider {
     private static final String TOKEN_TYPE = "type";
     private  static final String ACCESS_TOKEN = "ACCESS_TOKEN";
 
+    private static final String TOKEN_ROLE="role";
+
     private static final int MILLI_TO_SECOND=1000;
 
     private final JwtProperties jwtProperties;
@@ -49,7 +52,7 @@ public class JwtProvider {
     }
 
     private String buildAccessToken(
-            Long id, Date issuedAt, Date accessExpiresIn
+            Long id, Date issuedAt, Date accessExpiresIn, String role
     ) {
         final Key encodedKey = getSecretKey();
         return Jwts.builder()
@@ -57,17 +60,18 @@ public class JwtProvider {
                 .setIssuedAt(issuedAt)
                 .setSubject(id.toString())
                 .claim(TOKEN_TYPE, ACCESS_TOKEN)
+                .claim(TOKEN_ROLE, role)
                 .setExpiration(accessExpiresIn)
                 .signWith(encodedKey)
                 .compact();
     }
 
-    public String generateAccessToken(Long id) {
+    public String generateAccessToken(Long id, String role) {
         final Date issuedAt = new Date();
         final Date accessExpiresIn =
                 new Date(issuedAt.getTime() + jwtProperties.getAccessExp()* MILLI_TO_SECOND);
 
-        return buildAccessToken(id, issuedAt, accessExpiresIn);
+        return buildAccessToken(id, issuedAt, accessExpiresIn, role);
     }
 
     public boolean isAccessToken(String token) {
@@ -76,10 +80,13 @@ public class JwtProvider {
         return typeClaim.equals(ACCESS_TOKEN);
     }
 
-    public Long parseAccessToken(String token) {
+    public AccessTokenInfo parseAccessToken(String token) {
         if(isAccessToken(token)) {
             Claims claims = getJws(token).getBody();
-            return Long.parseLong(claims.getSubject());
+            return  AccessTokenInfo.builder()
+                    .userId(Long.parseLong(claims.getSubject()))
+                    .role((String) claims.get(TOKEN_ROLE))
+                    .build();
         }
         throw new DdubukException(ErrorCode.INVALID_TOKEN_ERROR);
     }

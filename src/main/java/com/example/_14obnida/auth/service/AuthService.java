@@ -51,7 +51,7 @@ public class AuthService {
     }
 
     private String resolveAccessToken(Long userId){
-        return jwtProvider.generateAccessToken(userId);
+        return jwtProvider.generateAccessToken(userId, "ROLE_USER");
     }
 
 }

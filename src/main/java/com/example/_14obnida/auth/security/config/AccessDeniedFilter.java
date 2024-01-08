@@ -39,7 +39,7 @@ public class AccessDeniedFilter extends OncePerRequestFilter {
         } catch (AccessDeniedException e) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication != null && authentication.isAuthenticated()) {
-                log.error("Access denied for user: {} - Request URL: {} ", authentication.getName(), request.getRequestURL(), authentication.getAuthorities());
+                log.error("Access denied for user: {} - Request URL: {} ", authentication.getName(), request.getRequestURL());
             } else {
                 log.error("Authentication: " + authentication);
                 log.error("Access denied for anonymous user - Request URL: {}", request.getRequestURL());
