@@ -23,7 +23,7 @@ import java.io.IOException;
 public class JwtTokenFilter extends OncePerRequestFilter {
     private final JwtProvider jwtProvider;
 
-    private final String BEARER = "BEARER ";
+    private final String BEARER = "Bearer ";
 
     @Override
     protected void doFilterInternal(
