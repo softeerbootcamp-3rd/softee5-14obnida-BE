@@ -41,7 +41,16 @@ public class CarService {
                 .retrieve()
                 .toEntity(String.class)
                 .block();
-        return parseResponse(result.getBody());
+
+        CarResponse carResponse = parseResponse(result.getBody());
+        int difference = carResponse.getCostOfDriving() - carRequest.getPublicTransportationFee();
+        if (difference < 2000) {
+            difference += 2000;
+            carResponse.setCostOfDriving(carResponse.getCostOfDriving() + 2000);
+        }
+        carResponse.setDifference(difference);
+
+        return carResponse;
     }
 
     private CarResponse parseResponse(String result) {
@@ -71,13 +80,11 @@ public class CarService {
         CarResponse carResponse = new CarResponse();
         carResponse.setDistance(distance);
         carResponse.setDuration(duration);
-        carResponse.setTollFare(tollFare);
-        carResponse.setFuelPrice(fuelPrice);
+//        carResponse.setTollFare(tollFare);
+//        carResponse.setFuelPrice(fuelPrice);
 
-        int costOfDriving = tollFare + fuelPrice;
 
-        carResponse.setCostOfDriving(costOfDriving);
-//        carResponse.setDifference(); //대중교통 이용 금액이 차량 이용금액보다 더 큰 경우가 있을까?
+        carResponse.setCostOfDriving(fuelPrice);
 
         return carResponse;
     }
