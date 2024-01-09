@@ -84,8 +84,6 @@ public class CarService {
         carResponse.setDuration(duration);
 //        carResponse.setTollFare(tollFare);
 //        carResponse.setFuelPrice(fuelPrice);
-
-
         carResponse.setCostOfDriving(fuelPrice);
 
         return carResponse;

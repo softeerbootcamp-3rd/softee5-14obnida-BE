@@ -3,6 +3,8 @@ package com.example._14obnida.car.controller;
 import com.example._14obnida.car.dto.CarRequest;
 import com.example._14obnida.car.dto.CarResponse;
 import com.example._14obnida.car.service.CarService;
+import com.example._14obnida.common.exception.DdubukException;
+import com.example._14obnida.common.exception.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,14 +28,14 @@ public class CarController {
 
     private void validateMapRequest(CarRequest carRequest) {
         if (carRequest.getStartLongitude() == null)
-            throw new RuntimeException(); //Exception 클래스 구현 예정
+            throw new DdubukException(ErrorCode.INVALID_START_GOAL_LOCATION);
         if (carRequest.getStartLatitude() == null)
-            throw new RuntimeException();
+            throw new DdubukException(ErrorCode.INVALID_START_GOAL_LOCATION);
         if (carRequest.getGoalLongitude() == null)
-            throw new RuntimeException();
+            throw new DdubukException(ErrorCode.INVALID_START_GOAL_LOCATION);
         if (carRequest.getGoalLatitude() == null)
-            throw new RuntimeException();
-        if (carRequest.getPublicTransportationFee() == null)
-            throw new RuntimeException();
+            throw new DdubukException(ErrorCode.INVALID_START_GOAL_LOCATION);
+        if (carRequest.getPublicTransportationFee() == null || carRequest.getPublicTransportationFee() < 0)
+            throw new DdubukException(ErrorCode.NOT_CORRECT_PUBLIC_TRANSPORTATION_FEE);
     }
 }
