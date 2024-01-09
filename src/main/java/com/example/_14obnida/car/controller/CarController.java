@@ -4,13 +4,12 @@ import com.example._14obnida.car.dto.CarRequest;
 import com.example._14obnida.car.dto.CarResponse;
 import com.example._14obnida.car.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-//@RestController
-@Controller
+@RestController
 public class CarController {
     private final CarService carService;
 
@@ -20,10 +19,9 @@ public class CarController {
     }
 
     @GetMapping("/app/car")
-    @ResponseBody
-    public CarResponse getResponse(@RequestBody CarRequest carRequest) {
+    public CarResponse getCost(@RequestBody CarRequest carRequest) {
         validateMapRequest(carRequest);
-        return carService.getResponse(carRequest);
+        return carService.getCost(carRequest);
     }
 
     private void validateMapRequest(CarRequest carRequest) {

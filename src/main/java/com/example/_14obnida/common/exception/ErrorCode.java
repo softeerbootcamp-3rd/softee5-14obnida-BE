@@ -13,7 +13,8 @@ public enum ErrorCode {
     DUPLICATE_NICKNAME_ERROR(HttpStatus.BAD_REQUEST, "중복된 닉네임입니다.", "중복되지 않은 닉네임으로 다시 회원가입해주세요."),
     NOT_EXIST_NICKNAME_ERROR(HttpStatus.BAD_REQUEST, "존재하지 않는 닉네임입니다.", "가입된 닉네임을 다시 확인해주세요."),
     NOT_MATCH_PASSWORD_ERROR(HttpStatus.BAD_REQUEST, "비밀번호가 맞지 않습니다.", "비밀번호를 다시 확인해주세요."),
-    NOT_FOUND_USER(HttpStatus.NOT_FOUND, "회원 조회 시 해당 회원을 찾을 수 없습니다.", "존재하지 않는 사용자이므로 로그인 정보를 다시 확인해주세요.");
+    NOT_FOUND_USER(HttpStatus.NOT_FOUND, "회원 조회 시 해당 회원을 찾을 수 없습니다.", "존재하지 않는 사용자이므로 로그인 정보를 다시 확인해주세요."),
+    CAN_NOT_FOUND_PATH(HttpStatus.INTERNAL_SERVER_ERROR, "지도 api를 호출할 수 없습니다.", "네이버 api 호출 오류이므로 다시 확인해주세요.");
 
     private final HttpStatus httpStatus;
     private final String message;
