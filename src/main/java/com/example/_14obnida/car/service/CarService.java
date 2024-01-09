@@ -2,6 +2,8 @@ package com.example._14obnida.car.service;
 
 import com.example._14obnida.car.dto.CarRequest;
 import com.example._14obnida.car.dto.CarResponse;
+import com.example._14obnida.common.exception.DdubukException;
+import com.example._14obnida.common.exception.ErrorCode;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -22,7 +24,7 @@ public class CarService {
     @Value("${clientSecret}")
     private String clientSecret;
 
-    public CarResponse getResponse(CarRequest carRequest) {
+    public CarResponse getCost(CarRequest carRequest) {
         double startLongitude = carRequest.getStartLongitude();
         double startLatitude = carRequest.getStartLatitude();
         double goalLongitude = carRequest.getGoalLongitude();
@@ -63,7 +65,7 @@ public class CarService {
         }
         Number code = (Number)object.get("code");
         if (code.intValue() != 0)
-            ; //0이면 길찾기 성공 else 예외처리
+            throw new DdubukException(ErrorCode.CAN_NOT_FOUND_PATH);
 
         JSONObject route = (JSONObject)object.get("route");
         JSONArray trafastArr = (JSONArray)route.get("traoptimal");
